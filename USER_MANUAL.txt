@@ -1,0 +1,504 @@
+================================================================================
+                    CAFE MANAGEMENT SYSTEM
+                         USER MANUAL
+                    For End Users (Customers)
+================================================================================
+
+Document Version: 1.0
+Last Updated: March 23, 2026
+
+================================================================================
+                         WELCOME!
+================================================================================
+
+Thank you for using our Cafe Management System! This manual will guide you 
+through all the features available to you as a customer.
+
+Quick Start:
+1. Open your web browser
+2. Go to: http://localhost:8000
+3. Login with your account
+4. Start ordering!
+
+================================================================================
+                         TABLE OF CONTENTS
+================================================================================
+
+1. Getting Started
+   - Creating an Account
+   - Logging In
+   - Understanding the Dashboard
+
+2. Browsing the Menu
+   - Viewing Products by Category
+   - Product Information
+   - Checking Availability
+
+3. Placing an Order
+   - Adding Items to Cart
+   - Managing Your Cart
+   - Checkout Process
+   - Special Requests
+
+4. Tracking Your Orders
+   - Viewing Order History
+   - Understanding Order Status
+   - Order Details
+
+5. Managing Your Account
+   - Updating Profile
+   - Viewing Past Orders
+   - Logout
+
+6. Tips & Tricks
+7. FAQ
+8. Getting Help
+
+================================================================================
+                         1. GETTING STARTED
+================================================================================
+
+1.1 Creating an Account
+-----------------------
+Note: In the current system, accounts are created by the admin. 
+Contact your cafe staff to create an account for you.
+
+Your account will include:
+- Your name
+- Email address (used for login)
+- Password
+- Customer role (allows ordering)
+
+1.2 Logging In
+--------------
+Step 1: Open your web browser
+Step 2: Navigate to: http://localhost:8000
+Step 3: You will see the login page
+
+        ┌─────────────────────────────────┐
+        │    ☕ Cafe Management           │
+        │    Sign in to your account      │
+        ├─────────────────────────────────┤
+        │    Email: [____________]        │
+        │    Password: [____________]     │
+        │                                 │
+        │    [    Sign In    ]            │
+        └─────────────────────────────────┘
+
+Step 4: Enter your email and password
+Step 5: Click "Sign In"
+Step 6: You will be redirected to the menu page
+
+1.3 Understanding the Dashboard
+-------------------------------
+After logging in, you will see:
+
+Top Navigation Bar:
+┌─────────────────────────────────────────────────────────────┐
+│ ☕ Cafe Management                                          │
+│                                                             │
+│  [Order] [My Orders]        👤 Your Name [User] [Logout]   │
+└─────────────────────────────────────────────────────────────┘
+
+Navigation Links:
+- Order → Browse menu and place new orders
+- My Orders → View your order history and status
+
+================================================================================
+                         2. BROWSING THE MENU
+================================================================================
+
+2.1 Viewing Products by Category
+--------------------------------
+Products are organized into categories:
+
+┌─────────────────────────────────────────────────────────────┐
+│  📋 Order                                                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ☕ COFFEE                                                  │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐      │
+│  │ Espresso │ │Cappuccino│ │  Latte   │ │Americano │      │
+│  │ $3.50    │ │  $4.50   │ │  $4.75   │ │  $3.75   │      │
+│  │ [Add]    │ │  [Add]   │ │  [Add]   │ │  [Add]   │      │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘      │
+│                                                             │
+│  🍵 TEA                                                     │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐      │
+│  │Green Tea │ │Black Tea │ │Chai Latte│ │ Iced Tea │      │
+│  │ $3.00    │ │  $3.00   │ │  $4.50   │ │  $3.50   │      │
+│  │ [Add]    │ │  [Add]   │ │  [Add]   │ │  [Add]   │      │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘      │
+│                                                             │
+│  🥐 PASTRY                                                  │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐      │
+│  │Croissant │ │Choc.Muffin│ │Blue.Muffin│ │Cinn.Roll │     │
+│  │ $3.75    │ │  $4.00   │ │  $4.00   │ │  $4.50   │      │
+│  │ [Add]    │ │  [Add]   │ │  [Add]   │ │  [Add]   │      │
+│  └──────────┘ └──────────┘ └──────────┘ └──────────┘      │
+│                                                             │
+│  🍪 SNACK                                                   │
+│  ┌──────────┐ ┌──────────┐ ┌──────────┐                   │
+│  │Caesar Sal│ │ Sandwich │ │  Cookie  │                   │
+│  │ $8.50    │ │  $7.50   │ │  $2.50   │                   │
+│  │ [Add]    │ │  [Add]   │ │  [Add]   │                   │
+│  └──────────┘ └──────────┘ └──────────┘                   │
+└─────────────────────────────────────────────────────────────┘
+
+2.2 Product Information
+-----------------------
+Each product card displays:
+- Product Name (e.g., "Latte")
+- Description (e.g., "Smooth espresso with steamed milk")
+- Price (e.g., "$4.75")
+- Add Button (to add to cart)
+
+2.3 Checking Availability
+-------------------------
+- Only available products are shown
+- Unavailable products are hidden from the menu
+- If a product runs out, it won't appear in your menu
+
+================================================================================
+                         3. PLACING AN ORDER
+================================================================================
+
+3.1 Adding Items to Cart
+------------------------
+Method 1: Quick Add
+- Click the [Add] button on any product
+- Item is added to your cart with quantity 1
+
+Method 2: Multiple Items
+- Click [Add] multiple times to increase quantity
+- Or adjust quantity in the cart panel
+
+Visual Feedback:
+- Cart button shows item count: 🛒 Cart (3)
+- Cart panel slides in from the right
+
+3.2 Managing Your Cart
+----------------------
+Click the "Cart" button to open the cart panel:
+
+┌─────────────────────────────────┐
+│  🛒 Your Cart            [✕]    │
+├─────────────────────────────────┤
+│                                 │
+│  Latte              $4.75       │
+│  [-] 2 [+]                      │
+│  ─────────────────────────────  │
+│  Croissant          $3.75       │
+│  [-] 1 [+]                      │
+│  ─────────────────────────────  │
+│                                 │
+│  Total:            $13.25       │
+│                                 │
+│  Order Type:                    │
+│  [▼ Dine-in        ]            │
+│                                 │
+│  Notes (optional):              │
+│  [_________________]            │
+│  [_________________]            │
+│                                 │
+│  [✓ Place Order]                │
+└─────────────────────────────────┘
+
+Cart Features:
+- View all items with quantities
+- Increase quantity: Click [+]
+- Decrease quantity: Click [-]
+- Remove item: Decrease to 0
+- See running total
+- Select order type
+- Add special notes
+
+3.3 Order Types
+---------------
+Dine-in:
+- You will eat at the cafe
+- Order will be served to your table
+- Select if you're staying at the cafe
+
+Takeaway:
+- You will take the order to go
+- Packaged for carrying
+- Select if you're taking away
+
+3.4 Checkout Process
+--------------------
+Step 1: Review your cart items
+Step 2: Verify quantities are correct
+Step 3: Select order type (Dine-in/Takeaway)
+Step 4: Add any special notes (optional)
+        Examples:
+        - "Extra hot please"
+        - "Less sugar"
+        - "Table 5"
+        - "Allergy: no nuts"
+
+Step 5: Click "Place Order"
+Step 6: Wait for confirmation
+
+3.5 Order Confirmation
+----------------------
+After placing your order, you will see:
+
+┌─────────────────────────────────┐
+│  ✓ Order Placed!           [✕]  │
+├─────────────────────────────────┤
+│                                 │
+│  Your order has been placed     │
+│  successfully.                  │
+│                                 │
+│  Order ID: #5                   │
+│                                 │
+│  [View My Orders] [Continue]    │
+└─────────────────────────────────┘
+
+What happens next:
+1. Order is sent to the kitchen
+2. Barista receives the order
+3. Order status changes to "Preparing"
+4. When ready, status changes to "Completed"
+5. You can collect your order
+
+================================================================================
+                         4. TRACKING YOUR ORDERS
+================================================================================
+
+4.1 Viewing Order History
+-------------------------
+Step 1: Click "My Orders" in the navigation
+Step 2: You will see all your orders
+
+┌─────────────────────────────────────────────────────────────┐
+│  🕐 My Orders                           [+ New Order]       │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ Order #5                        🟡 Pending          │   │
+│  ├─────────────────────────────────────────────────────┤   │
+│  │ Date: Mar 23, 2026 10:30 AM                         │   │
+│  │ Type: 🏷️ Dine-in                                    │   │
+│  │                                                     │   │
+│  │ Items:                                              │   │
+│  │ 2x Latte                  $9.50                     │   │
+│  │ 1x Croissant              $3.75                     │   │
+│  │                                                     │   │
+│  │ Total: $13.25                    [👁️ Details]      │   │
+│  └─────────────────────────────────────────────────────┘   │
+│                                                             │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ Order #4                        🟢 Completed        │   │
+│  ├─────────────────────────────────────────────────────┤   │
+│  │ Date: Mar 22, 2026 2:15 PM                          │   │
+│  │ Type: 🏷️ Takeaway                                   │   │
+│  │                                                     │   │
+│  │ Items:                                              │   │
+│  │ 1x Cappuccino               $4.50                   │   │
+│  │ 1x Cookie                   $2.50                   │   │
+│  │                                                     │   │
+│  │ Total: $7.00                     [👁️ Details]      │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+
+4.2 Understanding Order Status
+------------------------------
+
+🟡 PENDING
+- Order received but not yet started
+- You can cancel at this stage
+- Barista will start preparing soon
+
+🔵 PREPARING
+- Barista is making your order
+- Cannot cancel at this stage
+- Please wait for completion
+
+🟢 COMPLETED
+- Your order is ready!
+- Collect your order from the counter
+- Enjoy your meal!
+
+🔴 CANCELLED
+- Order was cancelled
+- By you or by staff
+- No charge applied
+
+4.3 Order Details
+-----------------
+Click "Details" on any order to see:
+
+┌─────────────────────────────────────────────────────────────┐
+│  📋 Order #5                                                │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  Order Information         Customer                         │
+│  Date: Mar 23, 2026        Name: John Doe                   │
+│  10:30 AM                  Email: john@email.com            │
+│  Type: Dine-in                                              │
+│                                                             │
+│  ─────────────────────────────────────────────────────────  │
+│                                                             │
+│  Order Items:                                               │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │ Item          Qty    Price    Subtotal               │  │
+│  ├──────────────────────────────────────────────────────┤  │
+│  │ Latte          2      $4.75     $9.50                │  │
+│  │ Croissant      1      $3.75     $3.75                │  │
+│  ├──────────────────────────────────────────────────────┤  │
+│  │ Total                              $13.25            │  │
+│  └──────────────────────────────────────────────────────┘  │
+│                                                             │
+│  [← Back to Orders]                    [✕ Cancel Order]    │
+└─────────────────────────────────────────────────────────────┘
+
+4.4 Cancelling an Order
+-----------------------
+You can cancel orders that are still "Pending":
+
+Step 1: Go to "My Orders"
+Step 2: Find the pending order
+Step 3: Click "Details"
+Step 4: Click "Cancel Order" (red button)
+Step 5: Confirm cancellation
+
+Note: Cannot cancel if status is "Preparing" or "Completed"
+
+================================================================================
+                         5. MANAGING YOUR ACCOUNT
+================================================================================
+
+5.1 Your Profile
+----------------
+Your name and role are shown in the top navigation:
+- 👤 Your Name [User]
+
+5.2 Viewing Past Orders
+-----------------------
+- All your orders are saved
+- Scroll through "My Orders" page
+- Use pagination if you have many orders
+- Each order shows date, items, and status
+
+5.3 Logout
+----------
+To log out:
+Step 1: Click "Logout" button (top right)
+Step 2: You will be redirected to login page
+
+Important: Always logout when:
+- Using a shared computer
+- Finished ordering
+- Leaving the cafe
+
+================================================================================
+                         6. TIPS & TRICKS
+================================================================================
+
+💡 Quick Tips:
+--------------
+1. Save Time: Remember your favorite orders for quick reordering
+2. Special Requests: Use notes for allergies or preferences
+3. Order Ahead: Place order before arriving for quick pickup
+4. Check Status: Monitor order status while waiting
+5. Group Orders: Add multiple items before checkout
+
+🎯 Best Practices:
+------------------
+1. Review cart before placing order
+2. Double-check order type (dine-in vs takeaway)
+3. Add clear special instructions
+4. Note your order number for pickup
+5. Cancel promptly if plans change
+
+⚠️ Important Notes:
+-------------------
+- Prices shown are final (include taxes)
+- Orders cannot be modified after placement
+- Cancel only pending orders
+- Completed orders cannot be refunded through system
+- Contact staff for issues with orders
+
+================================================================================
+                         7. FAQ (Frequently Asked Questions)
+================================================================================
+
+Q: How do I create an account?
+A: Ask the cafe staff to create an account for you. Provide your name 
+   and email address.
+
+Q: Can I modify my order after placing it?
+A: No, but you can cancel pending orders and place a new one.
+
+Q: How long does it take to prepare an order?
+A: Typically 5-10 minutes for drinks, 10-15 minutes for food items.
+
+Q: Can I order for someone else?
+A: Yes, you can place orders for anyone. Just specify in notes.
+
+Q: What if I forget my password?
+A: Contact the cafe admin to reset your password.
+
+Q: Can I save my favorite orders?
+A: Currently, you need to manually add items each time. This feature 
+   may be added in future updates.
+
+Q: Is there a minimum order amount?
+A: No minimum order. You can order a single item.
+
+Q: Can I schedule an order for later?
+A: Currently, all orders are for immediate preparation. Scheduling 
+   may be added in future updates.
+
+Q: How do I pay?
+A: Payment is handled at the counter when you collect your order.
+
+Q: Can I order from outside the cafe?
+A: Yes, you can place orders remotely and pick up as takeaway.
+
+================================================================================
+                         8. GETTING HELP
+================================================================================
+
+If you need assistance:
+
+1. Ask Cafe Staff
+   - Show them your order number
+   - Explain the issue
+   - They can check order status
+
+2. Contact Admin
+   - For account issues
+   - For technical problems
+   - For feedback or suggestions
+
+3. Common Issues & Solutions:
+
+   Problem: Can't login
+   Solution: Verify email and password, contact admin for reset
+
+   Problem: Order not showing
+   Solution: Refresh the page, check "My Orders" section
+
+   Problem: Wrong items in order
+   Solution: Contact staff immediately with order number
+
+   Problem: Order taking too long
+   Solution: Check order status, ask staff if delayed
+
+================================================================================
+                         THANK YOU!
+================================================================================
+
+We hope you enjoy using our Cafe Management System!
+
+Your feedback helps us improve. Please share your suggestions with 
+the cafe staff.
+
+Happy Ordering! ☕🥐
+
+================================================================================
+                    END OF USER MANUAL
+================================================================================

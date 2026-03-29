@@ -1,0 +1,892 @@
+================================================================================
+                    CAFE MANAGEMENT SYSTEM
+                    Project Documentation
+================================================================================
+
+Project Title: Cafe Management System
+Framework: Laravel 13 (PHP 8.2+)
+Database: SQLite
+Frontend: Bootstrap 5, Blade Templates
+API: Laravel Sanctum
+Author: Student Project
+Date: March 2026
+
+================================================================================
+                         TABLE OF CONTENTS
+================================================================================
+
+1. Project Overview
+2. System Requirements
+3. Installation Guide
+4. Project Structure
+5. Database Design
+6. User Roles & Permissions
+7. Features Description
+8. API Documentation
+9. Testing Guide
+10. Troubleshooting
+11. Future Enhancements
+12. Conclusion
+
+================================================================================
+                         1. PROJECT OVERVIEW
+================================================================================
+
+1.1 Introduction
+----------------
+The Cafe Management System is a comprehensive web application designed to 
+streamline cafe operations. It provides three distinct interfaces for:
+- Administrators (cafe owners/managers)
+- Baristas (cafe staff)
+- Customers (cafe patrons)
+
+1.2 Purpose
+-----------
+- Eliminate manual order taking
+- Reduce waiting time for customers
+- Provide real-time order tracking
+- Generate sales reports and statistics
+- Manage menu items efficiently
+- Handle staff management
+
+1.3 Key Benefits
+----------------
+✓ Digital ordering system
+✓ Real-time order status updates
+✓ Automated billing calculations
+✓ Multi-role access control
+✓ Responsive design (mobile-friendly)
+✓ Easy menu management
+
+================================================================================
+                         2. SYSTEM REQUIREMENTS
+================================================================================
+
+2.1 Server Requirements
+-----------------------
+- PHP 8.2 or higher
+- Composer (PHP Package Manager)
+- SQLite or MySQL Database
+- Web Server (Apache/Nginx) or PHP Built-in Server
+
+2.2 Client Requirements
+-----------------------
+- Modern Web Browser (Chrome, Firefox, Safari, Edge)
+- JavaScript Enabled
+- Internet Connection
+
+2.3 Development Environment
+---------------------------
+- Operating System: Windows/Linux/MacOS
+- Code Editor: VS Code, PhpStorm, or any text editor
+- Terminal/Command Prompt
+
+================================================================================
+                         3. INSTALLATION GUIDE
+================================================================================
+
+3.1 Step-by-Step Installation
+-----------------------------
+
+Step 1: Navigate to Project Directory
+-------------------------------------
+cd "/home/meng/Web Final (Cafe/cafe-app"
+
+Step 2: Install PHP Dependencies
+--------------------------------
+composer install
+
+Step 3: Configure Environment
+-----------------------------
+cp .env.example .env
+php artisan key:generate
+
+Step 4: Create Database
+-----------------------
+# SQLite is auto-created, or configure MySQL in .env:
+DB_CONNECTION=sqlite
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=cafe_db
+# DB_USERNAME=root
+# DB_PASSWORD=
+
+Step 5: Run Migrations
+----------------------
+php artisan migrate:fresh --seed
+
+Step 6: Create Storage Link
+---------------------------
+php artisan storage:link
+
+Step 7: Start Development Server
+--------------------------------
+php artisan serve
+
+Step 8: Access Application
+--------------------------
+Open browser and navigate to: http://localhost:8000
+
+3.2 Default Login Credentials
+-----------------------------
+┌───────────┬────────────────────┬──────────┐
+│   Role    │      Email         │ Password │
+├───────────┼────────────────────┼──────────┤
+│ Admin     │ admin@cafe.com     │ password │
+│ Barista   │ barista@cafe.com   │ password │
+│ Customer  │ user@cafe.com      │ password │
+└───────────┴────────────────────┴──────────┘
+
+================================================================================
+                         4. PROJECT STRUCTURE
+================================================================================
+
+cafe-app/
+│
+├── app/
+│   ├── Http/
+│   │   ├── Controllers/
+│   │   │   ├── Api/
+│   │   │   │   ├── AuthController.php      # API authentication
+│   │   │   │   ├── ProductController.php   # Product CRUD operations
+│   │   │   │   ├── OrderController.php     # Order management
+│   │   │   │   └── StaffController.php     # Staff management
+│   │   │   ├── AuthController.php          # Web authentication
+│   │   │   ├── AdminController.php         # Admin dashboard logic
+│   │   │   ├── BaristaController.php       # Barista operations
+│   │   │   └── UserController.php          # Customer operations
+│   │   └── Middleware/
+│   │       └── AdminMiddleware.php         # Admin access control
+│   └── Models/
+│       ├── User.php                        # User model
+│       ├── Product.php                     # Product model
+│       ├── Order.php                       # Order model
+│       └── OrderItem.php                   # Order items model
+│
+├── bootstrap/
+│   └── app.php                             # Application bootstrap
+│
+├── config/
+│   ├── app.php                             # App configuration
+│   ├── database.php                        # Database configuration
+│   └── sanctum.php                         # API token config
+│
+├── database/
+│   ├── migrations/
+│   │   ├── 2026_03_23_090140_add_role_to_users_table.php
+│   │   ├── 2026_03_23_090204_create_products_table.php
+│   │   ├── 2026_03_23_090204_create_orders_table.php
+│   │   └── 2026_03_23_090204_create_order_items_table.php
+│   ├── seeders/
+│   │   └── DatabaseSeeder.php              # Sample data seeder
+│   └── database.sqlite                     # SQLite database
+│
+├── public/
+│   ├── index.php                           # Entry point
+│   └── storage                             # Uploaded files
+│
+├── resources/
+│   └── views/
+│       ├── layouts/
+│       │   └── app.blade.php               # Main layout template
+│       ├── auth/
+│       │   └── login.blade.php             # Login page
+│       ├── admin/
+│       │   ├── dashboard.blade.php         # Admin dashboard
+│       │   ├── orders.blade.php            # Order management
+│       │   ├── products.blade.php          # Product management
+│       │   ├── staff.blade.php             # Staff management
+│       │   └── customers.blade.php         # Customer list
+│       ├── barista/
+│       │   ├── orders.blade.php            # Active orders
+│       │   └── history.blade.php           # Order history
+│       └── user/
+│           ├── orders.blade.php            # Menu & ordering
+│           ├── my-orders.blade.php         # Order history
+│           └── order-detail.blade.php      # Order details
+│
+├── routes/
+│   ├── web.php                             # Web routes
+│   └── api.php                             # API routes
+│
+├── storage/
+│   ├── app/
+│   │   └── public/
+│   │       └── products/                   # Product images
+│   ├── framework/
+│   └── logs/
+│
+├── .env                                    # Environment configuration
+├── .env.example                            # Environment template
+├── composer.json                           # PHP dependencies
+├── package.json                            # Node dependencies
+└── README.md                               # Project readme
+
+================================================================================
+                         5. DATABASE DESIGN
+================================================================================
+
+5.1 Entity Relationship Diagram
+-------------------------------
+
+    ┌──────────────┐       ┌──────────────┐
+    │    USERS     │       │   PRODUCTS   │
+    ├──────────────┤       ├──────────────┤
+    │ id (PK)      │       │ id (PK)      │
+    │ name         │       │ name         │
+    │ email        │       │ description  │
+    │ password     │       │ price        │
+    │ role         │       │ category     │
+    │ created_at   │       │ image        │
+    │ updated_at   │       │ available    │
+    └──────┬───────┘       │ created_at   │
+           │               │ updated_at   │
+           │               └──────┬───────┘
+           │                      │
+           │         ┌────────────┘
+           │         │
+           ▼         ▼
+    ┌──────────────────────────┐
+    │         ORDERS           │
+    ├──────────────────────────┤
+    │ id (PK)                  │
+    │ user_id (FK → Users)     │
+    │ status                   │
+    │ total_price              │
+    │ order_type               │
+    │ notes                    │
+    │ completed_at             │
+    │ created_at               │
+    │ updated_at               │
+    └────────────┬─────────────┘
+                 │
+                 │ 1:N
+                 │
+                 ▼
+    ┌──────────────────────────┐
+    │      ORDER_ITEMS         │
+    ├──────────────────────────┤
+    │ id (PK)                  │
+    │ order_id (FK → Orders)   │
+    │ product_id (FK→Products) │
+    │ quantity                 │
+    │ price                    │
+    │ special_instructions     │
+    │ created_at               │
+    │ updated_at               │
+    └──────────────────────────┘
+
+5.2 Table Descriptions
+----------------------
+
+USERS TABLE
+┌─────────────┬──────────────┬─────────────────────────────────┐
+│   Column    │    Type      │           Description           │
+├─────────────┼──────────────┼─────────────────────────────────┤
+│ id          │ BIGINT       │ Primary key, auto-increment     │
+│ name        │ VARCHAR      │ User's full name                │
+│ email       │ VARCHAR      │ Unique email for login          │
+│ password    │ VARCHAR      │ Hashed password                 │
+│ role        │ VARCHAR      │ admin/barista/user              │
+│ created_at  │ TIMESTAMP    │ Record creation time            │
+│ updated_at  │ TIMESTAMP    │ Record update time              │
+└─────────────┴──────────────┴─────────────────────────────────┘
+
+PRODUCTS TABLE
+┌─────────────┬──────────────┬─────────────────────────────────┐
+│   Column    │    Type      │           Description           │
+├─────────────┼──────────────┼─────────────────────────────────┤
+│ id          │ BIGINT       │ Primary key, auto-increment     │
+│ name        │ VARCHAR      │ Product name                    │
+│ description │ TEXT         │ Product description             │
+│ price       │ DECIMAL(10,2)│ Price in dollars                │
+│ category    │ VARCHAR      │ coffee/tea/pastry/snack         │
+│ image       │ VARCHAR      │ Image file path                 │
+│ available   │ BOOLEAN      │ Available for order (1/0)       │
+│ created_at  │ TIMESTAMP    │ Record creation time            │
+│ updated_at  │ TIMESTAMP    │ Record update time              │
+└─────────────┴──────────────┴─────────────────────────────────┘
+
+ORDERS TABLE
+┌─────────────┬──────────────┬─────────────────────────────────┐
+│   Column    │    Type      │           Description           │
+├─────────────┼──────────────┼─────────────────────────────────┤
+│ id          │ BIGINT       │ Primary key, auto-increment     │
+│ user_id     │ BIGINT       │ Foreign key to users table      │
+│ status      │ ENUM         │ pending/preparing/completed/    │
+│             │              │ cancelled                       │
+│ total_price │ DECIMAL(10,2)│ Total order amount              │
+│ order_type  │ VARCHAR      │ dine-in/takeaway                │
+│ notes       │ TEXT         │ Customer notes                  │
+│ completed_at│ TIMESTAMP    │ Order completion time           │
+│ created_at  │ TIMESTAMP    │ Record creation time            │
+│ updated_at  │ TIMESTAMP    │ Record update time              │
+└─────────────┴──────────────┴─────────────────────────────────┘
+
+ORDER_ITEMS TABLE
+┌──────────────────┬──────────────┬─────────────────────────────┐
+│     Column       │    Type      │         Description         │
+├──────────────────┼──────────────┼─────────────────────────────┤
+│ id               │ BIGINT       │ Primary key, auto-increment │
+│ order_id         │ BIGINT       │ FK to orders table          │
+│ product_id       │ BIGINT       │ FK to products table        │
+│ quantity         │ INT          │ Number of items             │
+│ price            │ DECIMAL(10,2)│ Price at time of order      │
+│ special_instr.   │ TEXT         │ Item-specific instructions  │
+│ created_at       │ TIMESTAMP    │ Record creation time        │
+│ updated_at       │ TIMESTAMP    │ Record update time          │
+└──────────────────┴──────────────┴─────────────────────────────┘
+
+================================================================================
+                    6. USER ROLES & PERMISSIONS
+================================================================================
+
+6.1 Role Hierarchy
+------------------
+
+    ┌─────────────────────────────────────────┐
+    │              ADMIN                      │
+    │  - Full system access                   │
+    │  - Manage products, staff, orders       │
+    │  - View statistics and reports          │
+    └─────────────────────────────────────────┘
+                    │
+    ┌───────────────┴─────────────────────────┐
+    │              BARISTA                    │
+    │  - View and update orders               │
+    │  - Change order status                  │
+    │  - View order history                   │
+    └─────────────────────────────────────────┘
+                    │
+    ┌───────────────┴─────────────────────────┐
+    │              USER (Customer)            │
+    │  - Browse menu                          │
+    │  - Place orders                         │
+    │  - View own order history               │
+    └─────────────────────────────────────────┘
+
+6.2 Permission Matrix
+---------------------
+
+┌──────────────────────┬───────┬─────────┬───────┐
+│      Feature         │ Admin │ Barista │ User  │
+├──────────────────────┼───────┼─────────┼───────┤
+│ View Dashboard       │   ✓   │    ✗    │   ✗   │
+│ Manage Products      │   ✓   │    ✗    │   ✗   │
+│ Manage Staff         │   ✓   │    ✗    │   ✗   │
+│ View All Orders      │   ✓   │    ✓    │   ✗   │
+│ Update Order Status  │   ✓   │    ✓    │   ✗   │
+│ Place Orders         │   ✓   │    ✓    │   ✓   │
+│ View Own Orders      │   ✓   │    ✓    │   ✓   │
+│ Cancel Orders        │   ✓   │    ✓    │   ✓*  │
+│ View Customers       │   ✓   │    ✗    │   ✗   │
+└──────────────────────┴───────┴─────────┴───────┘
+
+* Users can only cancel their own pending orders
+
+================================================================================
+                         7. FEATURES DESCRIPTION
+================================================================================
+
+7.1 Authentication System
+-------------------------
+- Email/password login
+- Session-based authentication
+- Role-based redirection after login
+- Secure password hashing (bcrypt)
+- CSRF protection on all forms
+- Logout functionality
+
+7.2 Admin Features
+------------------
+
+DASHBOARD:
+- Total orders count
+- Pending orders count
+- Total revenue display
+- Product count
+- Staff count
+- Customer count
+- Recent orders list
+
+PRODUCT MANAGEMENT:
+- Add new products with:
+  * Name, description, price
+  * Category selection
+  * Image upload
+  * Availability toggle
+- Edit existing products
+- Delete products
+- View all products in table format
+
+STAFF MANAGEMENT:
+- Add new staff members
+- Assign roles (admin/barista)
+- Edit staff information
+- Delete staff accounts
+- View all staff in table format
+
+ORDER MANAGEMENT:
+- View all orders from all customers
+- Filter by status
+- View order details
+- Track order history
+
+CUSTOMER MANAGEMENT:
+- View all registered customers
+- See customer registration dates
+
+7.3 Barista Features
+--------------------
+
+ORDER MANAGEMENT:
+- View active orders (pending & preparing)
+- Order cards display:
+  * Order ID and customer name
+  * Order items with quantities
+  * Special instructions
+  * Order type (dine-in/takeaway)
+  * Time since order placed
+
+STATUS UPDATES:
+- Start preparing (pending → preparing)
+- Complete order (preparing → completed)
+- Cancel order (any status → cancelled)
+
+ORDER HISTORY:
+- View completed orders
+- View cancelled orders
+- Search and filter capabilities
+
+AUTO-REFRESH:
+- Page reloads every 30 seconds
+- Ensures real-time order updates
+
+7.4 User (Customer) Features
+----------------------------
+
+MENU BROWSING:
+- Products grouped by category
+- Product cards show:
+  * Name and description
+  * Price
+  * Add to cart button
+
+SHOPPING CART:
+- Slide-out cart panel
+- Add/remove items
+- Adjust quantities
+- Real-time total calculation
+- Order type selection (dine-in/takeaway)
+- Special notes/requests
+
+ORDER PLACEMENT:
+- One-click checkout
+- Order confirmation modal
+- Order ID generation
+- Automatic cart clearing
+
+ORDER TRACKING:
+- View all personal orders
+- Order status indicators:
+  * Pending (yellow)
+  * Preparing (blue)
+  * Completed (green)
+  * Cancelled (red)
+- Order detail view with items
+- Cancel pending orders
+
+================================================================================
+                         8. API DOCUMENTATION
+================================================================================
+
+8.1 Authentication Endpoints
+----------------------------
+
+POST /api/login
+---------------
+Description: User login
+Request Body:
+{
+    "email": "user@cafe.com",
+    "password": "password"
+}
+Response:
+{
+    "success": true,
+    "user": {
+        "id": 1,
+        "name": "John Doe",
+        "email": "user@cafe.com",
+        "role": "user"
+    },
+    "message": "Login successful"
+}
+
+POST /api/logout
+----------------
+Description: User logout
+Headers: Authorization: Bearer {token}
+Response:
+{
+    "success": true,
+    "message": "Logged out successfully"
+}
+
+GET /api/user
+-------------
+Description: Get current authenticated user
+Headers: Authorization: Bearer {token}
+Response:
+{
+    "success": true,
+    "user": {
+        "id": 1,
+        "name": "John Doe",
+        "email": "user@cafe.com",
+        "role": "user"
+    }
+}
+
+8.2 Product Endpoints
+---------------------
+
+GET /api/products
+-----------------
+Description: Get all available products
+Response:
+{
+    "success": true,
+    "products": [
+        {
+            "id": 1,
+            "name": "Latte",
+            "description": "Smooth espresso with steamed milk",
+            "price": 4.75,
+            "category": "coffee",
+            "available": true
+        }
+    ]
+}
+
+POST /api/products
+------------------
+Description: Create new product (Admin only)
+Headers: Authorization: Bearer {token}
+Request Body:
+{
+    "name": "New Product",
+    "description": "Product description",
+    "price": 5.00,
+    "category": "coffee",
+    "available": true
+}
+
+PUT /api/products/{id}
+----------------------
+Description: Update product (Admin only)
+Headers: Authorization: Bearer {token}
+
+DELETE /api/products/{id}
+-------------------------
+Description: Delete product (Admin only)
+Headers: Authorization: Bearer {token}
+
+8.3 Order Endpoints
+-------------------
+
+POST /api/orders
+----------------
+Description: Place new order
+Headers: Authorization: Bearer {token}
+Request Body:
+{
+    "items": [
+        {
+            "product_id": 1,
+            "quantity": 2,
+            "special_instructions": "Extra hot"
+        }
+    ],
+    "order_type": "dine-in",
+    "notes": "Table 5"
+}
+Response:
+{
+    "success": true,
+    "order": {
+        "id": 5,
+        "user_id": 1,
+        "status": "pending",
+        "total_price": 9.50,
+        "order_type": "dine-in"
+    },
+    "message": "Order placed successfully"
+}
+
+GET /api/orders
+---------------
+Description: Get all orders (Admin/Barista)
+Headers: Authorization: Bearer {token}
+
+GET /api/orders/my-orders
+-------------------------
+Description: Get user's own orders
+Headers: Authorization: Bearer {token}
+
+PUT /api/orders/{id}/status
+---------------------------
+Description: Update order status (Admin/Barista)
+Headers: Authorization: Bearer {token}
+Request Body:
+{
+    "status": "preparing"
+}
+
+POST /api/orders/{id}/cancel
+----------------------------
+Description: Cancel order
+Headers: Authorization: Bearer {token}
+
+8.4 Staff Management Endpoints
+------------------------------
+
+GET /api/staff
+--------------
+Description: Get all staff (Admin only)
+Headers: Authorization: Bearer {token}
+
+POST /api/staff
+---------------
+Description: Create new staff (Admin only)
+Headers: Authorization: Bearer {token}
+Request Body:
+{
+    "name": "Jane Barista",
+    "email": "jane@cafe.com",
+    "password": "password123",
+    "role": "barista"
+}
+
+PUT /api/staff/{id}
+-------------------
+Description: Update staff (Admin only)
+Headers: Authorization: Bearer {token}
+
+DELETE /api/staff/{id}
+----------------------
+Description: Delete staff (Admin only)
+Headers: Authorization: Bearer {token}
+
+================================================================================
+                         9. TESTING GUIDE
+================================================================================
+
+9.1 Testing as Admin
+--------------------
+1. Login with: admin@cafe.com / password
+2. Verify dashboard statistics display correctly
+3. Navigate to Products:
+   - Click "Add Product"
+   - Fill in product details
+   - Save and verify product appears in list
+   - Edit and delete the product
+4. Navigate to Staff:
+   - Click "Add Staff"
+   - Create new barista account
+   - Verify staff appears in list
+5. Navigate to Orders:
+   - View all customer orders
+   - Click eye icon to view order details
+
+9.2 Testing as Barista
+----------------------
+1. Login with: barista@cafe.com / password
+2. View active orders on dashboard
+3. For a pending order:
+   - Click "Start" button
+   - Verify status changes to "preparing"
+   - Click "Complete" button
+   - Verify order moves to completed section
+4. Navigate to History:
+   - View completed orders
+   - Verify order details
+
+9.3 Testing as Customer
+-----------------------
+1. Login with: user@cafe.com / password
+2. Browse menu by category
+3. Add items to cart:
+   - Click "Add" on multiple products
+   - Click "Cart" button to view cart
+   - Adjust quantities
+4. Place order:
+   - Select order type (dine-in/takeaway)
+   - Add notes (optional)
+   - Click "Place Order"
+   - Verify order confirmation
+5. View My Orders:
+   - Navigate to "My Orders"
+   - Verify new order appears
+   - Click "Details" to view order
+   - Cancel order if still pending
+
+9.4 Testing API
+---------------
+Use tools like Postman or curl:
+
+# Test Login
+curl -X POST http://localhost:8000/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@cafe.com","password":"password"}'
+
+# Get Products
+curl http://localhost:8000/api/products
+
+# Place Order (requires auth token)
+curl -X POST http://localhost:8000/api/orders \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer {token}" \
+  -d '{"items":[{"product_id":1,"quantity":1}],"order_type":"dine-in"}'
+
+================================================================================
+                         10. TROUBLESHOOTING
+================================================================================
+
+Problem: Server won't start
+---------------------------
+Solution: 
+- Check if port 8000 is in use
+- Try: php artisan serve --port=8080
+- Ensure PHP is installed correctly
+
+Problem: Database errors
+------------------------
+Solution:
+- Run: php artisan migrate:fresh --seed
+- Check .env database configuration
+- Ensure database file has write permissions
+
+Problem: Login not working
+--------------------------
+Solution:
+- Clear cache: php artisan cache:clear
+- Clear config: php artisan config:clear
+- Verify credentials are correct
+
+Problem: Images not uploading
+-----------------------------
+Solution:
+- Run: php artisan storage:link
+- Check storage/app/public permissions
+- Verify file upload size in php.ini
+
+Problem: Session issues
+-----------------------
+Solution:
+- Clear session: php artisan session:flush
+- Check storage/framework/sessions permissions
+
+Problem: API returns 401 Unauthorized
+-------------------------------------
+Solution:
+- Ensure you're sending auth token
+- Token should be in Authorization header
+- Format: "Bearer {your-token}"
+
+================================================================================
+                         11. FUTURE ENHANCEMENTS
+================================================================================
+
+Potential improvements for future versions:
+
+1. Payment Integration
+   - Credit/debit card payments
+   - Digital wallets (PayPal, Apple Pay)
+   - Cash on pickup option
+
+2. Advanced Features
+   - Table QR code ordering
+   - Loyalty points system
+   - Push notifications
+   - Email/SMS order confirmations
+
+3. Reporting
+   - Sales reports (daily/weekly/monthly)
+   - Popular items analysis
+   - Peak hours analytics
+   - Customer behavior insights
+
+4. Mobile Application
+   - iOS app
+   - Android app
+   - Real-time order tracking
+
+5. Multi-location Support
+   - Multiple cafe branches
+   - Centralized admin
+   - Branch-specific menus
+
+6. Inventory Management
+   - Stock tracking
+   - Low stock alerts
+   - Automatic reordering
+
+7. Customer Features
+   - Order scheduling
+   - Favorite orders
+   - Custom drink builder
+   - Reviews and ratings
+
+================================================================================
+                         12. CONCLUSION
+================================================================================
+
+The Cafe Management System is a complete, production-ready web application that
+demonstrates modern web development practices using Laravel framework.
+
+Key Achievements:
+✓ Clean MVC architecture
+✓ Role-based access control
+✓ RESTful API design
+✓ Responsive UI design
+✓ Secure authentication
+✓ Database relationships
+✓ CRUD operations
+✓ Real-time updates
+
+This project showcases:
+- Backend: Laravel, PHP, SQLite, Eloquent ORM
+- Frontend: Bootstrap 5, Blade Templates, JavaScript
+- API: Laravel Sanctum, RESTful endpoints
+- Security: CSRF protection, password hashing, middleware
+
+The system is suitable for:
+- Student projects and portfolios
+- Small cafe operations
+- Learning Laravel framework
+- Understanding full-stack development
+
+================================================================================
+                         CONTACT & SUPPORT
+================================================================================
+
+For questions or support regarding this project:
+
+Project Location: /home/meng/Web Final (Cafe/cafe-app
+Documentation: /home/meng/Web Final (Cafe/cafe-app/DOCUMENTATION.txt
+README: /home/meng/Web Final (Cafe/cafe-app/README.md
+
+Commands Reference:
+- Start server: php artisan serve
+- Run migrations: php artisan migrate
+- Seed database: php artisan db:seed
+- Clear cache: php artisan cache:clear
+- View routes: php artisan route:list
+
+================================================================================
+                    END OF DOCUMENTATION
+================================================================================
+Document Version: 1.0
+Last Updated: March 23, 2026
+================================================================================
